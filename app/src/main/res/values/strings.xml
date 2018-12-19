@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Cast</string>
+
+    <string name="validCharacters">0,1,2,3,4,5,6,7,8,9,qwertzuiopasdfghjklyxcvbnm, ,QWERTZUIOPASDFGHJKLYXCVBNM</string>
+    <string name="serviceId">com.example.vikram.cast</string>
+    <string name="successMessage">success</string>
+    <string name="pollNameFragment">pollNameFragment</string>
+    <string name="setQuestionsFragment">setQuestionsFragment</string>
+    <string name="startAdvertisementFragment">startAdvertisementFragment</string>
+    <string name="showResultsFragment">showResultsFragment</string>
+    <string name="serverDiscoveryFragment">serverDiscoveryFragment</string>
+    <string name="connectAndShowQuestionsFragment">connectAndShowQuestionsFragment</string>
+
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".clientCode.ConnectAndShowQuestionsFragment.ConnectAndShowQuestionsFragment">
+
+
+    <ListView
+        android:id="@+id/questionListClient"
+        android:layout_width="match_parent"
+        android:layout_height="425dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/sendButtonClient"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@android:drawable/ic_menu_send"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onSendButtonClicked"
+            android:background="@drawable/round_button"
+            android:layout_marginBottom="15dp"/>
+    </LinearLayout>
+</FrameLayout>
