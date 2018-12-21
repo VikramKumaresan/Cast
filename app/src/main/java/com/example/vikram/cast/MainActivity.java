@@ -51,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode==PermissionManager.REQUEST_CODE){
-            for (int permission : grantResults){
-                if(permission==PackageManager.PERMISSION_DENIED){
-                    Toast.makeText(this, "Pls Grant Permissions", Toast.LENGTH_LONG).show();
-                    finish();
-                    return;
-                }
+            //Location permission
+            if(grantResults[3]==PackageManager.PERMISSION_DENIED){
+                Toast.makeText(this, "Pls Grant Permissions", Toast.LENGTH_LONG).show();
+                finish();
             }
         }
     }
