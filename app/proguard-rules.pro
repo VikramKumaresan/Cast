@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#Android support libs - No Obfuscation
+#-dontwarn android.support.**
+-keep public class android.support.v7.widget.** { *; }
