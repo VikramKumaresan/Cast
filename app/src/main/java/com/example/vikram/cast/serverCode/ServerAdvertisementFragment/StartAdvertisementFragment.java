@@ -152,13 +152,13 @@ public class StartAdvertisementFragment extends Fragment {
 
     private void updateVoteStore(Payload answerPayload) throws Exception {
         byte[] buffer = answerPayload.asBytes();
-        JSONObject questionAnswer = new JSONObject(new String(buffer));
+        JSONObject questionAnswer = new JSONObject(new String(buffer).trim());
 
         Iterator<String> questions = questionAnswer.keys();
 
         while(questions.hasNext()){
-            String question = questions.next().trim();
-            String answer = questionAnswer.getString(question).trim();
+            String question = questions.next();
+            String answer = questionAnswer.getString(question);
 
             HashMap<String,Integer> votesForAnswer = voteStore.get(question);
             int currentVotes = votesForAnswer.get(answer);
@@ -167,7 +167,7 @@ public class StartAdvertisementFragment extends Fragment {
 
     }
     private synchronized void updateNumberOfEntriesTextView(){
-        int currentNumber = Integer.parseInt(numberOfEntriesTextView.getText(). toString());
+        int currentNumber = Integer.parseInt(numberOfEntriesTextView.getText().toString());
         numberOfEntriesTextView.setText(String.valueOf(++currentNumber));
     }
 
