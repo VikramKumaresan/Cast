@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vikram.cast.R;
+import com.example.vikram.cast.serverCode.PollQuestionsFragment.PollPasswordDialog;
 import com.example.vikram.cast.serverCode.PollQuestionsFragment.PollQuestions;
 import com.example.vikram.cast.serverCode.PollQuestionsFragment.PollQuestionsData;
 import com.example.vikram.cast.serverCode.PollQuestionsFragment.QuestionInputDialog;
@@ -30,7 +32,10 @@ public class ServerActivity extends AppCompatActivity {
     private Toast message;
 
     private String pollName;
+    private String pollPassword;
+
     private QuestionInputDialog questionInputDialog;
+    private PollPasswordDialog pollPasswordDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class ServerActivity extends AppCompatActivity {
     private void initializeVariables(){
         fragmentManager = getSupportFragmentManager();
         message = new Toast(this);
+        pollPasswordDialog = new PollPasswordDialog(this);
     }
 
     private void startPollNameFragment(){
@@ -77,7 +83,12 @@ public class ServerActivity extends AppCompatActivity {
                 showToastMessage("Pls enter a valid name");
             }
         }
-        else if(currentFragment.getTag().equals(getString(R.string.setQuestionsFragment))){
+        else if((currentFragment.getTag().equals(getString(R.string.setQuestionsFragment))) && !pollPasswordDialog.isShowing()){
+            pollPasswordDialog.show();
+        }
+        else if((currentFragment.getTag().equals(getString(R.string.setQuestionsFragment))) && pollPasswordDialog.isShowing()){
+            pollPasswordDialog.dismiss();
+
             if(isQuestionsSet((PollQuestions)currentFragment)){
                 ArrayList<PollQuestionsData> allQuestionAnswers = ((PollQuestions) currentFragment).getAllQuestionAnswers();
                 try {
@@ -86,6 +97,7 @@ public class ServerActivity extends AppCompatActivity {
 
                     startAdvertisementFragmentObj.setServerEndpointName(pollName);
                     startAdvertisementFragmentObj.setJsonEncodedQuestionAnswers(jsonEncodedQuestionAnswers);
+                    startAdvertisementFragmentObj.setPollPassword(pollPassword);
                     startAdvertisementFragmentObj.prepareVoteStore(allQuestionAnswers);
                     switchFragment(startAdvertisementFragmentObj,getString(R.string.startAdvertisementFragment),true);
                 } catch (JSONException e) {
@@ -137,6 +149,11 @@ public class ServerActivity extends AppCompatActivity {
             PollQuestions fragment =(PollQuestions)fragmentManager.findFragmentById(R.id.fragmentContainer);
             questionInputDialog.addQuestionToList(fragment);
         }
+    }
+    public void onPollPasswordSetButtonClicked(View view){
+        //Save pollPassword
+        pollPassword= pollPasswordDialog.getPollPassword();
+        onNextButtonClicked(null);
     }
     private void clearPollQuestionsViewModel(){
         QuestionListViewModelStorage questionListViewModelObj= ViewModelProviders.of(this).get(QuestionListViewModelStorage.class);

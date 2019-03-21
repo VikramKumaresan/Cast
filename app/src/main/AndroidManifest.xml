@@ -33,8 +33,10 @@
         <activity
             android:name=".clientCode.ClientActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".clientCode.ConnectAndShowQuestionsFragment.LoadingDialogBox"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".clientCode.ConnectAndShowQuestionsFragment.LoadingDialogBox"
+            android:screenOrientation="portrait" />
+        <activity android:name=".serverCode.PollQuestionsFragment.PollPasswordDialog"></activity>
     </application>
 
 </manifest>

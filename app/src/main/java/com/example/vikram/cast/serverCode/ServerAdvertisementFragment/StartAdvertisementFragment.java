@@ -39,6 +39,7 @@ import java.util.Iterator;
 
 public class StartAdvertisementFragment extends Fragment {
     private String serverEndpointName;
+    private String pollPassword;
     private byte[] successMessage;
     private byte[] jsonEncodedQuestionAnswers;
     private ConnectionLifecycleCallback connectionManagementCallback;
@@ -189,6 +190,7 @@ public class StartAdvertisementFragment extends Fragment {
     public void setServerEndpointName(String string){
         serverEndpointName=string;
     }
+    public void setPollPassword(String string){pollPassword=string;}
     public void prepareVoteStore( ArrayList<PollQuestionsData> allQuestionAnswers){
         voteStore = new HashMap<>();
 

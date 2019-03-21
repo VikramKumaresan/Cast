@@ -58,7 +58,7 @@ public class ClientActivity extends AppCompatActivity {
                 .commit();
     }
     public static void attachItemClickListenerToList(ListView list){
-        //Called from ServerDicoveryFragment
+        //Called from ServerDiscoveryFragment
         list.setOnItemClickListener(serverListItemClickListener);
     }
 
