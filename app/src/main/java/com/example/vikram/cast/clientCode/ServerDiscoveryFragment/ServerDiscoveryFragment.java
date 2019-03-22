@@ -27,10 +27,16 @@ public class ServerDiscoveryFragment extends Fragment {
     private ListView serverList;
     private ServerListCustomAdapter adapter;
 
+    private String pollPassword;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("fragment","onCreate Called!");
+
+        if(pollPassword.equals("")){
+            pollPassword= getString(R.string.serviceId);
+        }
         startDiscovery();
     }
 
@@ -62,7 +68,7 @@ public class ServerDiscoveryFragment extends Fragment {
         };
 
         Nearby.getConnectionsClient(getContext()).startDiscovery(
-                getString(R.string.serviceId),
+                pollPassword,
                 discoveryCallback,
                 new DiscoveryOptions(Strategy.P2P_STAR)
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -109,5 +115,9 @@ public class ServerDiscoveryFragment extends Fragment {
 
     public String getEndpointIdAtPosition(int position){
         return adapter.getItem(position).getEndpointId();
+    }
+
+    public void setPollPassword(String pollPassword) {
+        this.pollPassword = pollPassword;
     }
 }

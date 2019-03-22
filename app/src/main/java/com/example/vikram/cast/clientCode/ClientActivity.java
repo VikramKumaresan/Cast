@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.vikram.cast.R;
 import com.example.vikram.cast.clientCode.ConnectAndShowQuestionsFragment.ConnectAndShowQuestionsFragment;
 import com.example.vikram.cast.clientCode.ServerDiscoveryFragment.ServerDiscoveryFragment;
+import com.example.vikram.cast.serverCode.PollQuestionsFragment.PollPasswordDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,18 +25,22 @@ public class ClientActivity extends AppCompatActivity {
     private Toast message;
     public static AdapterView.OnItemClickListener serverListItemClickListener;
 
+    private PollPasswordDialog pollPasswordDialog;
+    private String pollPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
         initializeVariables();
-        goToServerDiscoveryFragment();
+        pollPasswordDialog.show();
     }
 
     void initializeVariables(){
         fragmentManager = getSupportFragmentManager();
         message = new Toast(this);
+        pollPasswordDialog = new PollPasswordDialog(this);
 
         serverListItemClickListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -50,10 +55,19 @@ public class ClientActivity extends AppCompatActivity {
         };
     }
 
+    public void onPollPasswordSetButtonClicked(View view){
+        pollPassword= pollPasswordDialog.getPollPassword();
+        pollPasswordDialog.dismiss();
+        goToServerDiscoveryFragment();
+    }
+
     //ServerDiscoveryFragment funcs
     void goToServerDiscoveryFragment(){
+        ServerDiscoveryFragment serverDiscoveryFragment = new ServerDiscoveryFragment();
+        serverDiscoveryFragment.setPollPassword(pollPassword);
+
         fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerClient,new ServerDiscoveryFragment(),getString(R.string.serverDiscoveryFragment))
+                .add(R.id.fragmentContainerClient,serverDiscoveryFragment,getString(R.string.serverDiscoveryFragment))
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
