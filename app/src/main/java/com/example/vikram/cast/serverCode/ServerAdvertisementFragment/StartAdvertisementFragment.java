@@ -39,7 +39,7 @@ import java.util.Iterator;
 
 public class StartAdvertisementFragment extends Fragment {
     private String serverEndpointName;
-    private String pollPassword;
+    private String pollPassword; 
     private byte[] successMessage;
     private byte[] jsonEncodedQuestionAnswers;
     private ConnectionLifecycleCallback connectionManagementCallback;
@@ -66,7 +66,7 @@ public class StartAdvertisementFragment extends Fragment {
     private void startAdvertisement(){
         Nearby.getConnectionsClient(getContext()).startAdvertising(
                 serverEndpointName,
-                getString(R.string.serviceId),
+                pollPassword,
                 connectionManagementCallback,
                 new AdvertisingOptions(Strategy.P2P_STAR)
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -87,6 +87,10 @@ public class StartAdvertisementFragment extends Fragment {
 
         hasVoted = new HashMap<>();
         successMessage=getString(R.string.successMessage).getBytes();
+
+        if(pollPassword.equals("")){
+            pollPassword=getString(R.string.serviceId);
+        }
 
         final Context context=getContext();
 
